@@ -14,24 +14,25 @@ const auth = require('./controllers/authorization');
 //Database Setup
 const db = knex({
   client: 'pg',
-  connection: process.env.POSTGRES_URI 
+  connection: 'postgres://db_0r9t_user:cOBTIx8p9xuHO2Lxo12JSMKRtsrLY5ML@dpg-cev0v6pgp3jjsh1c0g6g-a.oregon-postgres.render.com/db_0r9t'
 });
 
 const app = express();
 
-const whitelist = ['http://localhost:3001']
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
+// const whitelist = ['http://localhost:3001']
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   }
+// }
 
 app.use(morgan('combined'));
-app.use(cors(corsOptions))
+app.use(cors())
+// app.use(cors(corsOptions))
 app.use(express.json()); 
 
 app.post('/signin', signin.signinAuthentication(db, bcrypt))
@@ -41,6 +42,6 @@ app.post('/profile/:id', auth.requireAuth, (req, res) => { profile.handleProfile
 app.put('/image', auth.requireAuth, (req, res) => { image.handleImage(req, res, db)})
 app.post('/imageurl', auth.requireAuth, (req, res) => { image.handleApiCall(req, res)})
 
-app.listen(process.env.PORT || 3000, ()=> {
-  console.log(`app is running on port ${process.env.PORT}`);
+app.listen(3000, ()=> {
+  console.log(`app is running on port 3000`);
 })

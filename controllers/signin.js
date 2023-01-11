@@ -2,18 +2,25 @@ const jwt = require('jsonwebtoken');
 
 // Redis Setup
 const redis = require('redis');
-const redisClient = redis.createClient({
-  socket: {
-    host: 'redis',
-    port: 6379,
-  },
-  legacyMode: true
-});
+const redisClient = async () => {
+  const client = redis.createClient({
+    socket: {
+      host: 'oregon-redis.render.com',
+      port: 6379,
+    },
+    username: 'red-cev53hh4reb4earvp7d0',
+    password: 'lnoSKWR17CN5JlCzlKbV080bmjyjuNJ4',
+    legacyMode: true
+  });
 
-async function redisConnect() {
- return await redisClient.connect();
+  await client.connect()
+  return client;
 }
-redisConnect()
+
+// async function redisConnect() {
+//   return await redisClient.connect();
+// }
+// redisConnect().catch(console.log);
 
 const signToken = (username) => {
   const jwtPayload = { username };
