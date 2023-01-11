@@ -24,6 +24,7 @@ services:
   # Backend
   smart-brain-api:
     container_name: backend
+    image: cecilzha/smart-brain-api
     build: ./
     volumes:
       - ./:/usr/src/smart-brain-api
