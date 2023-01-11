@@ -41,7 +41,9 @@ app.get('/profile/:id', auth.requireAuth, (req, res) => { profile.handleProfileG
 app.post('/profile/:id', auth.requireAuth, (req, res) => { profile.handleProfileUpdate(req, res, db)})
 app.put('/image', auth.requireAuth, (req, res) => { image.handleImage(req, res, db)})
 app.post('/imageurl', auth.requireAuth, (req, res) => { image.handleApiCall(req, res)})
-app.get('helloworld', (req, res) => res.send('Hello World Everyone!'))
+app.get('/helloworld', (req, res) => {
+  res.send('Hello World!')
+})
 
 app.listen(3000, ()=> {
   console.log(`app is running on port 3000`);
